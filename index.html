@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Editor</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Image Editor</h1>
+        <input type="file" id="fileInput" accept="image/jpeg, image/png" style="display: none;">
+        <div id="dropZone">
+            <p>Click to upload or drag and drop an image here</p>
+        </div>
+        <img id="imagePreview" src="" alt="Preview" style="display: none;">
+        
+        <h2>Basic Editing</h2>
+        <div class="controls">
+            <button id="cropBtn">Crop</button>
+            <button id="resizeBtn">Resize</button>
+            <input type="number" id="widthInput" placeholder="Width">
+            <input type="number" id="heightInput" placeholder="Height">
+            <button id="applyResize">Apply Resize</button>
+            <label>
+                <input type="checkbox" id="keepAspectRatio"> Keep Aspect Ratio
+            </label>
+        </div>
+        
+        <h2>Image Adjustment</h2>
+        <div class="controls">
+            <div class="slider-container">
+                <label for="brightness">Brightness:</label>
+                <input type="range" id="brightness" min="-100" max="100" value="0">
+                <span id="brightnessValue">0</span>
+            </div>
+            <div class="slider-container">
+                <label for="contrast">Contrast:</label>
+                <input type="range" id="contrast" min="-100" max="100" value="0">
+                <span id="contrastValue">0</span>
+            </div>
+            <div class="slider-container">
+                <label for="saturation">Saturation:</label>
+                <input type="range" id="saturation" min="-100" max="100" value="0">
+                <span id="saturationValue">0</span>
+            </div>
+            <button id="applyAdjustments">Apply Adjustments</button>
+        </div>
+        
+        <h2>Add Text</h2>
+        <div class="controls">
+            <input type="text" id="textInput" placeholder="Enter text">
+            <select id="fontSelect">
+                <option value="Arial">Arial</option>
+                <option value="Verdana">Verdana</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Courier">Courier</option>
+                <option value="Georgia">Georgia</option>
+            </select>
+            <input type="number" id="fontSize" min="8" max="24" value="16">
+            <div class="color-picker">
+                <label for="textColor">Color:</label>
+                <input type="color" id="textColor">
+                <input type="text" id="hexColor" placeholder="#000000">
+            </div>
+            <button id="addText">Add Text</button>
+        </div>
+        
+        <h2>Add Shapes</h2>
+        <div class="controls">
+            <button id="addRectangle">Add Rectangle</button>
+            <button id="addCircle">Add Circle</button>
+            <div class="color-picker">
+                <label for="shapeColor">Color:</label>
+                <input type="color" id="shapeColor">
+                <input type="text" id="shapeHexColor" placeholder="#000000">
+            </div>
+        </div>
+        
+        <div id="undoRedo">
+            <button id="undoBtn">Undo</button>
+            <button id="redoBtn">Redo</button>
+        </div>
+
+        <div class="final-actions">
+            <button id="saveBtn">Save Image</button>
+            <button id="resetBtn">Reset to Original</button>
+        </div>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h2>Warning</h2>
+            <p id="modalMessage"></p>
+            <button id="modalConfirm">Confirm</button>
+            <button id="modalCancel">Cancel</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
