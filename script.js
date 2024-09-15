@@ -132,8 +132,8 @@ applyAdjustments.addEventListener('click', () => {
     canvas.width = imagePreview.naturalWidth;
     canvas.height = imagePreview.naturalHeight;
     ctx.filter = `brightness(${100 + parseInt(brightnessSlider.value)}%) ` +
-        `contrast(${100 + parseInt(contrastSlider.value)}%) ` +
-        `saturate(${100 + parseInt(saturationSlider.value)}%)`;
+                 `contrast(${100 + parseInt(contrastSlider.value)}%) ` +
+                 `saturate(${100 + parseInt(saturationSlider.value)}%)`;
     ctx.drawImage(imagePreview, 0, 0);
     imagePreview.src = canvas.toDataURL();
     addToHistory();
@@ -185,7 +185,7 @@ function addShape(shapeType) {
 
     ctx.fillStyle = shapeColor.value;
     if (shapeType === 'rectangle') {
-        ctx.fillRect(20, 20, 100, 80);
+        ctx.fillRect(20, 20, 100, 80); 
     } else if (shapeType === 'circle') {
         ctx.beginPath();
         ctx.arc(60, 60, 40, 0, 2 * Math.PI);
@@ -259,7 +259,7 @@ resetBtn.addEventListener('click', () => {
 
 // Обработка ошибок и предупреждений
 function showError(message) {
-    alert(message);
+    alert(message); 
 }
 
 function showConfirmation(message, onConfirm) {
@@ -288,92 +288,92 @@ window.addEventListener('beforeunload', (event) => {
 let isCropping = false;
 
 cropBtn.addEventListener('click', () => {
-    if (isCropping) return;
+  if (isCropping) return;
 
-    isCropping = true;
+  isCropping = true;
 
-    alert('You are in photo cropping mode. Select the area and hold down the right click . Press esc to cancel the action');
-    const imageRect = imagePreview.getBoundingClientRect();
+  alert('You are in photo cropping mode. Select the area and hold down the right click that you want to crop. Press esc to cancel the action');
+  const imageRect = imagePreview.getBoundingClientRect();
 
-    const selectionRect = document.createElement('div');
-    selectionRect.style.position = 'absolute';
-    selectionRect.style.border = '2px dashed red';
-    selectionRect.style.cursor = 'move';
-    document.body.appendChild(selectionRect);
+  const selectionRect = document.createElement('div');
+  selectionRect.style.position = 'absolute';
+  selectionRect.style.border = '2px dashed red';
+  selectionRect.style.cursor = 'move';
+  document.body.appendChild(selectionRect);
 
-    let startX, startY, endX, endY;
+  let startX, startY, endX, endY;
 
-    const onMouseDown = (e) => {
-        startX = e.clientX;
-        startY = e.clientY;
+  const onMouseDown = (e) => {
+    startX = e.clientX;
+    startY = e.clientY;
 
-        selectionRect.style.left = startX + 'px';
-        selectionRect.style.top = startY + 'px';
-        selectionRect.style.width = '0px';
-        selectionRect.style.height = '0px';
+    selectionRect.style.left = startX + 'px';
+    selectionRect.style.top = startY + 'px';
+    selectionRect.style.width = '0px';
+    selectionRect.style.height = '0px';
 
-        document.addEventListener('mousemove', onMouseMove);
-        document.addEventListener('mouseup', onMouseUp);
-    };
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+  };
 
-    const onMouseMove = (e) => {
-        endX = e.clientX;
-        endY = e.clientY;
+  const onMouseMove = (e) => {
+    endX = e.clientX;
+    endY = e.clientY;
 
-        const width = endX - startX;
-        const height = endY - startY;
+    const width = endX - startX;
+    const height = endY - startY;
 
-        selectionRect.style.width = Math.abs(width) + 'px';that you want to crop
-        selectionRect.style.height = Math.abs(height) + 'px';
-    };
+    selectionRect.style.width = Math.abs(width) + 'px';
+    selectionRect.style.height = Math.abs(height) + 'px';
+  };
 
-    const onMouseUp = () => {
-        document.removeEventListener('mousemove', onMouseMove);
-        document.removeEventListener('mouseup', onMouseUp);
-        document.removeEventListener('keydown', onKeyDown);
+  const onMouseUp = () => {
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+    document.removeEventListener('keydown', onKeyDown);
 
-        const selectionRectData = selectionRect.getBoundingClientRect();
-        const cropX = selectionRectData.left - imageRect.left;
-        const cropY = selectionRectData.top - imageRect.top;
-        const cropWidth = selectionRectData.width;
-        const cropHeight = selectionRectData.height;
+    const selectionRectData = selectionRect.getBoundingClientRect();
+    const cropX = selectionRectData.left - imageRect.left;
+    const cropY = selectionRectData.top - imageRect.top;
+    const cropWidth = selectionRectData.width;
+    const cropHeight = selectionRectData.height;
 
-        document.body.removeChild(selectionRect);
+    document.body.removeChild(selectionRect);
 
-        cropImage(cropX, cropY, cropWidth, cropHeight);
-        isCropping = false;
-    };
+    cropImage(cropX, cropY, cropWidth, cropHeight);
+    isCropping = false;
+  };
 
-    const onKeyDown = (e) => {
-        if (e.key === 'Escape') {
-            e.preventDefault();
-            document.removeEventListener('mousemove', onMouseMove);
-            document.removeEventListener('mouseup', onMouseUp);
-            document.removeEventListener('keydown', onKeyDown);
+  const onKeyDown = (e) => {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
+      document.removeEventListener('keydown', onKeyDown);
 
-            document.body.removeChild(selectionRect);
-            isCropping = false;
-        }
-    };
+      document.body.removeChild(selectionRect);
+      isCropping = false;
+    }
+  };
 
-    imagePreview.addEventListener('mousedown', onMouseDown);
-    document.addEventListener('keydown', onKeyDown);
+  imagePreview.addEventListener('mousedown', onMouseDown);
+  document.addEventListener('keydown', onKeyDown);
 });
 
 // Function to crop the image
 function cropImage(x, y, width, height) {
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
 
-    canvas.width = width;
-    canvas.height = height;
+  canvas.width = width;
+  canvas.height = height;
 
-    ctx.drawImage(imagePreview, x, y, width, height, 0, 0, width, height);
+  ctx.drawImage(imagePreview, x, y, width, height, 0, 0, width, height);
 
-    imagePreview.src = canvas.toDataURL();
+  imagePreview.src = canvas.toDataURL();
 }
 
-
+  
 
 // Оптимизация производительности
 function debounce(func, wait) {
