@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Editor</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <div class="container">
         <h1>Image Editor</h1>
@@ -14,8 +16,8 @@
             <p>Click to upload or drag and drop an image here</p>
         </div>
         <img id="imagePreview" src="" alt="Preview" style="display: none;">
-        
-        <h2>Basic Editing</h2>
+
+        <h2 style="margin-top: 50px;">Basic Editing</h2>
         <div class="controls">
             <button id="cropBtn">Crop</button>
             <button id="resizeBtn">Resize</button>
@@ -26,7 +28,37 @@
                 <input type="checkbox" id="keepAspectRatio"> Keep Aspect Ratio
             </label>
         </div>
-        
+
+        <input type="range" id="temperature" min="-100" max="100" value="0">
+<button id="applyTemperature">Apply Temperature</button>
+
+
+        <h3>Image Orientation</h3>
+        <div class="controls">
+            <button id="rotateHorizontal">Horizontal</button>
+            <button id="rotateVertical">Vertical</button>
+            <button id="rotate90">Rotate 90°</button>
+            <button id="rotate45">Rotate 45°</button>
+            <input type="number" id="rotateCustomInput" placeholder="Custom angle">
+            <button id="rotateCustom">Rotate Custom</button>
+            <button id="flipHorizontal">Flip Horizontal</button>
+            <button id="flipVertical">Flip Vertical</button>
+        </div>
+
+        <div class="controls">
+            <label for="filter">Filter:</label>
+            <select id="filter">
+                <option value="none">None</option>
+                <option value="grayscale">Grayscale</option>
+                <option value="sepia">Sepia</option>
+                <option value="blur">Blur</option>
+                <option value="invert">Invert</option>
+                <option value="hueRotate">Hue Rotate</option>
+            </select>
+            <button id="applyFilter">Apply Filter</button>
+            <button id="resetFilter">Reset Filter</button>
+        </div>
+
         <h2>Image Adjustment</h2>
         <div class="controls">
             <div class="slider-container">
@@ -46,7 +78,7 @@
             </div>
             <button id="applyAdjustments">Apply Adjustments</button>
         </div>
-        
+
         <h2>Add Text</h2>
         <div class="controls">
             <input type="text" id="textInput" placeholder="Enter text">
@@ -65,18 +97,38 @@
             </div>
             <button id="addText">Add Text</button>
         </div>
-        
+
         <h2>Add Shapes</h2>
         <div class="controls">
             <button id="addRectangle">Add Rectangle</button>
             <button id="addCircle">Add Circle</button>
+            <button id="addLine">Add Line</button>
+
             <div class="color-picker">
                 <label for="shapeColor">Color:</label>
-                <input type="color" id="shapeColor">
+                <input type="color" id="shapeColor" value="#000000">
                 <input type="text" id="shapeHexColor" placeholder="#000000">
             </div>
+
+            <div class="line-controls">
+                <label for="lineWidth">Line Width:</label>
+                <input type="number" id="lineWidth" value="5" min="1">
+
+                <h3>Line Coordinates for line</h3>
+                <label for="lineStartX">Start X:</label>
+                <input type="number" id="lineStartX" value="20">
+
+                <label for="lineStartY">Start Y:</label>
+                <input type="number" id="lineStartY" value="20">
+
+                <label for="lineEndX">End X:</label>
+                <input type="number" id="lineEndX" value="120">
+
+                <label for="lineEndY">End Y:</label>
+                <input type="number" id="lineEndY" value="100">
+            </div>
         </div>
-        
+
         <div id="undoRedo">
             <button id="undoBtn">Undo</button>
             <button id="redoBtn">Redo</button>
@@ -99,4 +151,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>
